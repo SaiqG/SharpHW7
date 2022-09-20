@@ -1,7 +1,6 @@
 ﻿
 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-
-// Пользователь вводит с клавиатуры M чисел. Посчитайте, сколько чисел больше 0 ввёл пользователь.
+// Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 
 string[] SplitString()
 {
@@ -51,6 +50,8 @@ void Print2DArray(double[,] numbers, int height, int width)
     }
 }
 
+//Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
+
 void FindElement(double[,] numbers)
 {
     Console.WriteLine("Элемент на какой позиции найти? Строка Столбец ");
@@ -64,6 +65,9 @@ void FindElement(double[,] numbers)
         Console.WriteLine($"В массиве нет ничего на [{position[0]} , {position[1]}]");
     }
 }
+
+// Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+
 double[] FindAverage(double[,] numbers)
 {
     double[] average = new double[numbers.GetLength(1)];
