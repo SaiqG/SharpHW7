@@ -53,6 +53,7 @@ void Print2DArray(double[,] numbers, int height, int width)
 
 //Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
 
+
 void FindElement(double[,] numbers)
 {
     Console.WriteLine("Элемент на какой позиции найти? Строка Столбец ");
@@ -60,29 +61,34 @@ void FindElement(double[,] numbers)
     Console.Clear();
     try
     {
-        for (int i = 0; i < numbers.GetLength(0); i++)
-        {
-            for (int j = 0; j < numbers.GetLength(1); j++)
-            {
-                if (i == int.Parse(position[0]) && j == int.Parse(position[1]))
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                    Console.Write($"{numbers[i, j],5} ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-                else
-                {
-                    Console.Write($"{numbers[i, j],5} ");
-                }
-            }
-            Console.WriteLine();
+        PrintArrayWithColoredElement(numbers, position);
 
-        }
-        Console.WriteLine($"Элемент на позиции [{position[0]} , {position[1]}] это {numbers[int.Parse(position[0]), int.Parse(position[1])]}");
+        Console.WriteLine();
+        Console.WriteLine($"Элемент на позиции [{int.Parse(position[0])} , {int.Parse(position[1])}] это {numbers[int.Parse(position[0]) -1 , int.Parse(position[1])-1]}");
     }
     catch (Exception)
     {
-        Console.WriteLine($"В массиве нет ничего на [{position[0]} , {position[1]}]");
+        Console.WriteLine($"В массиве нет ничего на [{int.Parse(position[0])} , {int.Parse(position[1])}]");
+    }
+}
+void PrintArrayWithColoredElement(double[,] numbers, string[] position)
+{
+    for (int i = 0; i < numbers.GetLength(0); i++)
+    {
+        for (int j = 0; j < numbers.GetLength(1); j++)
+        {
+            if (i == int.Parse(position[0]) -1  && j == int.Parse(position[1]) - 1)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write($"{numbers[i, j],5} ");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.Write($"{numbers[i, j],5} ");
+            }
+        }
+        Console.WriteLine();
     }
 }
 
@@ -130,7 +136,7 @@ while (true)
         FindElement(numbers);
         Console.WriteLine();
 
-        Console.WriteLine(string.Join("  ", FindAverage(numbers)));
+        Console.WriteLine(string.Join("  ", FindAverage(numbers)),5);
         Console.WriteLine();
 
     }
