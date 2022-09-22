@@ -1,24 +1,24 @@
 ﻿
 System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-// Пользователь вводит с клавиатуры M чисел. Посчитайте, сколько чисел больше 0 ввёл пользователь.
-
-string[] SplitString()
+string[] EnterAndSplitString()
 {
     Console.Write("Введите числа через пробел, запятую или / : ");
     return Console.ReadLine()!.Split(' ', ',', '/');
 }
 
-bool SelectType()
+//Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
+
+bool SelectFillType()
 {
     Console.WriteLine("Добавить дроби в массив?");
     Console.WriteLine("1.Да | 2.Нет");
-    ConsoleKeyInfo chouse = Console.ReadKey();
-    Console.Clear();
+    ConsoleKeyInfo choose = Console.ReadKey();
+    Console.WriteLine();
 
-    if (chouse.KeyChar == '1')
+    if (choose.KeyChar == '1')
     { return true; }
-    else if (chouse.KeyChar == '2')
+    else if (choose.KeyChar == '2')
     { return false; }
     else
     { Console.WriteLine($"Такого варианта нет, значит добавлю дроби."); }
@@ -41,9 +41,9 @@ void Fill2DArray(double[,] numbers, int height, int width, bool type)
 
 void Print2DArray(double[,] numbers, int height, int width)
 {
-    for (int i = 0; i < height; i++) 
+    for (int i = 0; i < height; i++)
     {
-        for (int j = 0; j < width; j++)  
+        for (int j = 0; j < width; j++)
         {
             Console.Write($"{numbers[i, j],5} ");
         }
@@ -51,12 +51,33 @@ void Print2DArray(double[,] numbers, int height, int width)
     }
 }
 
+//Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
+
 void FindElement(double[,] numbers)
 {
     Console.WriteLine("Элемент на какой позиции найти? Строка Столбец ");
-    string[] position = SplitString();
+    string[] position = EnterAndSplitString();
+    Console.Clear();
     try
     {
+        for (int i = 0; i < numbers.GetLength(0); i++)
+        {
+            for (int j = 0; j < numbers.GetLength(1); j++)
+            {
+                if (i == int.Parse(position[0]) && j == int.Parse(position[1]))
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write($"{numbers[i, j],5} ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.Write($"{numbers[i, j],5} ");
+                }
+            }
+            Console.WriteLine();
+
+        }
         Console.WriteLine($"Элемент на позиции [{position[0]} , {position[1]}] это {numbers[int.Parse(position[0]), int.Parse(position[1])]}");
     }
     catch (Exception)
@@ -64,8 +85,13 @@ void FindElement(double[,] numbers)
         Console.WriteLine($"В массиве нет ничего на [{position[0]} , {position[1]}]");
     }
 }
+
+//Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+
 double[] FindAverage(double[,] numbers)
 {
+    Console.WriteLine($"Среднее арифметическое каждого столбца :");
+
     double[] average = new double[numbers.GetLength(1)];
 
     for (int i = 0; i < numbers.GetLength(0); i++)
@@ -79,7 +105,7 @@ double[] FindAverage(double[,] numbers)
     int k = 0;
     foreach (double a in average)
     {
-        average[k] =  Math.Round(average[k] / numbers.GetLength(1), 2);
+        average[k] = Math.Round(average[k] / numbers.GetLength(1), 2);
         k++;
     }
     return average;
@@ -90,18 +116,22 @@ while (true)
     try
     {
         Console.WriteLine("Укажите размер двумерного массива.");
-        
-        string[] scale = SplitString();
+
+        string[] scale = EnterAndSplitString();
         int height = int.Parse(scale[0]);
         int width = int.Parse(scale[1]);
 
         double[,] numbers = new double[height, width];
-        
-        Fill2DArray(numbers, height, width, SelectType());
+
+        Fill2DArray(numbers, height, width, SelectFillType());
         Print2DArray(numbers, height, width);
+        Console.WriteLine();
+
         FindElement(numbers);
-        Console.WriteLine($"Среднее арифметическое каждого столбца");
+        Console.WriteLine();
+
         Console.WriteLine(string.Join("  ", FindAverage(numbers)));
+        Console.WriteLine();
 
     }
     catch (Exception)
