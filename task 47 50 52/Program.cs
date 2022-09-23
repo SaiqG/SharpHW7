@@ -53,15 +53,13 @@ void Print2DArray(double[,] numbers)
 
 //Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
 
-void FindElement(double[,] numbers)
+string[] FindElement(double[,] numbers)
 {
     Console.WriteLine("Элемент на какой позиции найти? Строка Столбец ");
     string[] position = EnterAndSplitString();
     Console.Clear();
     try
     {
-        PrintArrayWithColoredElement(numbers, position);
-
         Console.WriteLine();
         Console.WriteLine($"Элемент на позиции [{int.Parse(position[0])} , {int.Parse(position[1])}] это {numbers[int.Parse(position[0]) - 1, int.Parse(position[1]) - 1]}");
     }
@@ -69,6 +67,7 @@ void FindElement(double[,] numbers)
     {
         Console.WriteLine($"В массиве нет ничего на [{int.Parse(position[0])} , {int.Parse(position[1])}]");
     }
+    return position;
 }
 
 void PrintArrayWithColoredElement(double[,] numbers, string[] position)
@@ -126,19 +125,17 @@ while (true)
         Console.WriteLine("Укажите размер двумерного массива.");
 
         string[] scale = EnterAndSplitString();
-
         double[,] numbers = new double[int.Parse(scale[0]), int.Parse(scale[1])];
 
         Fill2DArray(numbers, SelectFillType());
         Print2DArray(numbers);
         Console.WriteLine();
 
-        FindElement(numbers);
+        PrintArrayWithColoredElement(numbers, FindElement(numbers));
         Console.WriteLine();
 
         Console.WriteLine(string.Join("  ", FindAverage(numbers)), 5);
         Console.WriteLine();
-
 
     }
     catch (Exception)
