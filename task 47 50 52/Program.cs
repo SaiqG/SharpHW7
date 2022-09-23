@@ -29,7 +29,7 @@ void Fill2DArray(double[,] numbers, bool type)
 {
     for (int i = 0; i < numbers.GetLength(0); i++)
     {
-        for (int j = 0; j < numbers.GetLength(1) ; j++)
+        for (int j = 0; j < numbers.GetLength(1); j++)
         {
             if (type)
             { numbers[i, j] = Math.Round(new Random().NextDouble() + new Random().Next(-10, 11), 1); }
@@ -101,9 +101,9 @@ double[] FindAverage(double[,] numbers)
 
     double[] average = new double[numbers.GetLength(1)];
 
-    for (int i = 0; i < numbers.GetLength(0); i++)
+    for (int i = 0; i < numbers.GetLength(1); i++)
     {
-        for (int j = 0; j < numbers.GetLength(1); j++)
+        for (int j = 0; j < numbers.GetLength(0); j++)
         {
             average[i] = average[i] + numbers[j, i];
         }
@@ -112,7 +112,7 @@ double[] FindAverage(double[,] numbers)
     int k = 0;
     foreach (double a in average)
     {
-        average[k] = Math.Round(average[k] / numbers.GetLength(1), 2);
+        average[k] = Math.Round(average[k] / numbers.GetLength(0), 2);
         k++;
     }
     return average;
@@ -138,7 +138,7 @@ while (true)
 
         Console.WriteLine(string.Join("  ", FindAverage(numbers)), 5);
         Console.WriteLine();
-        
+
 
     }
     catch (Exception)
