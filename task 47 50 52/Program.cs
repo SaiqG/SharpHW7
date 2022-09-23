@@ -25,11 +25,11 @@ bool SelectFillType()
     return true;
 }
 
-void Fill2DArray(double[,] numbers, int height, int width, bool type)
+void Fill2DArray(double[,] numbers, bool type)
 {
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < numbers.GetLength(0); i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < numbers.GetLength(1) ; j++)
         {
             if (type)
             { numbers[i, j] = Math.Round(new Random().NextDouble() + new Random().Next(-10, 11), 1); }
@@ -39,11 +39,11 @@ void Fill2DArray(double[,] numbers, int height, int width, bool type)
     }
 }
 
-void Print2DArray(double[,] numbers, int height, int width)
+void Print2DArray(double[,] numbers)
 {
-    for (int i = 0; i < height; i++)
+    for (int i = 0; i < numbers.GetLength(0); i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < numbers.GetLength(1); j++)
         {
             Console.Write($"{numbers[i, j],5} ");
         }
@@ -52,7 +52,6 @@ void Print2DArray(double[,] numbers, int height, int width)
 }
 
 //Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
-
 
 void FindElement(double[,] numbers)
 {
@@ -64,20 +63,21 @@ void FindElement(double[,] numbers)
         PrintArrayWithColoredElement(numbers, position);
 
         Console.WriteLine();
-        Console.WriteLine($"Элемент на позиции [{int.Parse(position[0])} , {int.Parse(position[1])}] это {numbers[int.Parse(position[0]) -1 , int.Parse(position[1])-1]}");
+        Console.WriteLine($"Элемент на позиции [{int.Parse(position[0])} , {int.Parse(position[1])}] это {numbers[int.Parse(position[0]) - 1, int.Parse(position[1]) - 1]}");
     }
     catch (Exception)
     {
         Console.WriteLine($"В массиве нет ничего на [{int.Parse(position[0])} , {int.Parse(position[1])}]");
     }
 }
+
 void PrintArrayWithColoredElement(double[,] numbers, string[] position)
 {
     for (int i = 0; i < numbers.GetLength(0); i++)
     {
         for (int j = 0; j < numbers.GetLength(1); j++)
         {
-            if (i == int.Parse(position[0]) -1  && j == int.Parse(position[1]) - 1)
+            if (i == int.Parse(position[0]) - 1 && j == int.Parse(position[1]) - 1)
             {
                 Console.ForegroundColor = ConsoleColor.DarkGreen;
                 Console.Write($"{numbers[i, j],5} ");
@@ -92,7 +92,8 @@ void PrintArrayWithColoredElement(double[,] numbers, string[] position)
     }
 }
 
-//Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+
+//Найдите среднее арифметическое элементов в каждом столбце.
 
 double[] FindAverage(double[,] numbers)
 {
@@ -117,6 +118,7 @@ double[] FindAverage(double[,] numbers)
     return average;
 }
 
+
 while (true)
 {
     try
@@ -124,20 +126,19 @@ while (true)
         Console.WriteLine("Укажите размер двумерного массива.");
 
         string[] scale = EnterAndSplitString();
-        int height = int.Parse(scale[0]);
-        int width = int.Parse(scale[1]);
 
-        double[,] numbers = new double[height, width];
+        double[,] numbers = new double[int.Parse(scale[0]), int.Parse(scale[1])];
 
-        Fill2DArray(numbers, height, width, SelectFillType());
-        Print2DArray(numbers, height, width);
+        Fill2DArray(numbers, SelectFillType());
+        Print2DArray(numbers);
         Console.WriteLine();
 
         FindElement(numbers);
         Console.WriteLine();
 
-        Console.WriteLine(string.Join("  ", FindAverage(numbers)),5);
+        Console.WriteLine(string.Join("  ", FindAverage(numbers)), 5);
         Console.WriteLine();
+        
 
     }
     catch (Exception)
